@@ -1,0 +1,152 @@
+/*Cambios generales*/
+html {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;    
+    background-image: url(); /*TO-DO: Poner imagen de fondo para la página web*/
+	    background-repeat: no-repeat;
+	    background-size: cover;
+        background-color: rgb(155, 155, 229);
+    text-align: center;
+    color: rgb(63, 47, 47);
+}
+/*NoScript*/
+noscript{
+  color: blue;
+  outline: auto;
+  outline-color: rebeccapurple;
+}
+/*Footer*/
+footer{
+    background-color: black;
+
+}
+
+/*////////////////////////////////////////////////////////////////*/
+/*HEADER:*/
+/*Buscador del municipio*/
+.buscadorMunicipio {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+    gap: 0px; 
+
+    width: 100%;
+    margin-top: 5vh;
+    margin-bottom: 0.5vh;
+}
+.inputBusqueda {
+    flex-grow: 4;
+    padding: 10px 15px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    margin: 0;
+}
+#buscarMunicipio{
+    flex-grow: 0.2;
+    text-align: center;
+    padding: 10px 1px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 0; 
+}
+#botonInformacion {
+    flex-grow: 0.1;
+    text-align: center;
+    padding: 10px 1px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 0; 
+}
+#botonInformacion:hover{
+  transform:scale(1.03);
+  background-color: #ffffff;
+  color:#000000;
+}
+/*Print de error para el usuario*/
+.contenedorError{
+    display: none;
+}
+.codigoError{
+
+    color: red;
+    font-size: 16px;
+
+    border-radius: 8px;
+    box-sizing: border-box;
+
+}
+/*Contenedor de pdf con el mapa con la información de los municipios*/
+.pdf-container {
+    display: none;
+    justify-content: center;
+    
+    width: 80vw; 
+    height: 70vh; 
+    margin: 2vh 10vw;
+}
+/*Para que el iframe ocupe todo el contenedor */
+.pdf-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+}
+
+.botonMostrarTiempoDe{
+    width: 33%;
+    padding: 10px 15px;
+
+    border: 2px solid #ccc;
+    border-radius: 8px;
+
+    font-size: 16px;
+    box-sizing: border-box;
+}
+.botonMostrarTiempoDe:hover{
+  transform:scale(1.03);
+  background-color: #ffffff;
+  color:#000000;
+}
+/*////////////////////////////////////////////////////////////////*/
+/*SECCTION:*/
+/*Fecha y hora y temperatura día y noche*/
+
+.Fecha_Temperatura{
+    justify-content: left;
+    flex-direction:row;
+    display: flex;
+
+    gap: 60vw;
+}
+.fechaHora{
+    justify-content: left;
+    flex-direction:row;
+    display: flex;
+
+    font-size: 14px;
+
+    margin-top: -2vh;
+    margin-bottom: -2%;
+    gap: 3vw;
+}
+.tempDiaNoche{
+    justify-content: left;
+    flex-direction:row;
+    display: flex;
+
+    font-size: 14px;
+
+    margin-top: -2vh;
+    margin-bottom: -2%;
+    gap: 3vw;
+}
+/*////////////////////////////////////////////////////////////////*/
+/*Diferentes class List*/
+.mostrar{
+    display: flex;
+}
