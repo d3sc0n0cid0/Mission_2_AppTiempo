@@ -7,26 +7,32 @@ const municipios = [
   { nombre: 'sevilla', codigo: '41091' }
 ];
 
-//Variables globales
-let codigoMunicipio;
-///////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
 //De la API de Aemet
-
-// Petición inicial
+  // Petición inicial
 async function init(codigoMunicipio = '28079') {
   try {
-    const datos = await fetchWeatherByMunicipio(codigoMunicipio);//Intentamos obtener los datos del municipio al que llamamos
+    const datos = await fetchWeatherByMunicipio(codigoMunicipio);
+
+    // Comprobamos si la API nos devolvió el aviso de Too Many Requests
+    if (datos && datos.error === 'TOO_MANY_REQUESTS') {
+      const tempAct = document.querySelector(".TemperaturaActua");
+      if (tempAct) {
+        tempAct.textContent = "Límite superado (Error 429). Reintenta en 5 min.";
+      }
+      return;
+    }
+
     if (datos) {
-      console.log('Datos de la AEMET recibidos correctamente:', datos);
+      datosApi(datos);
     }
   } catch (error) {
-    mostrarError(`Error al iniciar la consulta: ${error}`);
+    console.error(`Error al iniciar la consulta: ${error}`);
   }
 }
-// Búsqueda de municipio
+  // Búsqueda de municipio
 const inputBusqueda = document.querySelector(".inputBusqueda");
 const botonBuscarMunicipio = document.getElementById("buscarMunicipio");
-
 if (inputBusqueda && botonBuscarMunicipio) {//Si ambos existen
   botonBuscarMunicipio.addEventListener("click", () => {
     // Corregido: Leer directamente inputBusqueda.value en lugar de e.target.value
@@ -45,7 +51,161 @@ if (inputBusqueda && botonBuscarMunicipio) {//Si ambos existen
     }
   });
 }
+//Están juntos todos los datos que quiero sacar a la api
+function datosApi(datos){
+  if (!datos || datos.length === 0) return;
+  const prediccionHoy = datos[0].prediccion.dia[0];
+  tempearturaActual(prediccionHoy);
+  temperaturaMaxMin(prediccionHoy);
+  sensacionTermicaActual(prediccionHoy);
+  descripcionTiempo(prediccionHoy);
+  humedad(prediccionHoy);
+  viento(prediccionHoy);
+  precipitacion(prediccionHoy);
+}
 
+function temperaturaMaxMin(prediccionHoy){
+  const tempMaxima = prediccionHoy.temperatura.maxima;
+  const tempMinima = prediccionHoy.temperatura.minima;
+
+  const tempMax = document.querySelector(".tempMax");
+  if (tempMax) {
+    tempMax.textContent=`${tempMaxima}°C`;
+  }
+  const tempMin = document.querySelector(".tempMin");
+  if(tempMin){
+    tempMin.textContent=`${tempMinima}°C`;
+  }
+}
+  //temperaura actual
+function tempearturaActual(prediccionHoy){
+  const horaActual = new Date().getHours();
+  const listaTemperaturas = prediccionHoy.temperatura.dato; // Array con la lista de hora y temperatura[{ hora: 6, value: 15 }, { hora: 12, value: 20 }, ...]
+
+  if (!listaTemperaturas || listaTemperaturas.length === 0) {return null;}
+
+  let tempMasCercana = listaTemperaturas[0];
+  let menorDiferencia = Math.abs(horaActual - listaTemperaturas[0].hora);
+
+  listaTemperaturas.forEach((item) => {
+    const diferencia = Math.abs(horaActual - item.hora);
+    if (diferencia < menorDiferencia) {
+      menorDiferencia = diferencia;
+      tempMasCercana = item;
+    }
+  });
+    const tempAct = document.querySelector(".temperaturaActual");
+    if (tempAct) {
+      tempAct.textContent = `${tempMasCercana.value}°C`;
+    }
+
+}
+function sensacionTermicaActual(prediccionHoy){
+  const horaActual = new Date().getHours();
+  const listaSensacionTermica = prediccionHoy.sensTermica.dato; // Array con la lista de hora y sensaciontermica[{ hora: 6, value: 15 }, { hora: 12, value: 20 }, ...]
+
+  if (!listaSensacionTermica || listaSensacionTermica.length === 0) {return null;}
+
+  let sensMasCercana = listaSensacionTermica[0];
+  let menorDiferencia = Math.abs(horaActual - listaSensacionTermica[0].hora);
+
+  listaSensacionTermica.forEach((item) => {
+    const diferencia = Math.abs(horaActual - item.hora);
+    if (diferencia < menorDiferencia) {
+      menorDiferencia = diferencia;
+      sensMasCercana = item;
+    }
+  });
+    const sensAct = document.querySelector(".sensacionTermica");
+    if (sensAct) {
+      sensAct.textContent = `Sensacion termica: ${sensMasCercana.value}°C`;
+    }
+
+}
+function descripcionTiempo(prediccionHoy) {
+  const textDescription = document.querySelector(".descripcionTiempo");
+  if (!textDescription) return;
+
+  const horaActual = new Date().getHours();
+  const listaEstado = prediccionHoy.estadoCielo;
+
+  if (!listaEstado || listaEstado.length === 0) {textDescription.textContent = 'No disponible';return;}
+
+  //Buscamos el elemento que coincida con el rango de la hora actual
+  let estadoEncontrado = listaEstado.find(item => {
+    if (!item.periodo) return false;
+
+    //El periodo pued evenir en rangos y no solo en números así que hay que probar con que tenga 6-12 y no solo 6
+    if (item.periodo.includes('-')) {
+      //Hacemos que se vuelva un array con 06 y 12
+      const [inicio, fin] = item.periodo.split('-').map(Number);//Quitamos el - y convertimos a números cada uno de los textos que resultaron de dividir el periodo.
+      return horaActual >= inicio && horaActual < fin;
+    }
+    // Si el periodo es una hora exacta "18"
+    return Number(item.periodo) === horaActual;
+  });
+
+  //Si no encontró el tramo exacto, buscamos el primer elemento del array que tenga texto de descripción
+  //Es para los casos dond ehago el split porque como hará el mismo tiempo pues se pasa el primer texto
+  if (!estadoEncontrado || !estadoEncontrado.descripcion) {
+    estadoEncontrado = listaEstado.find(item => item.descripcion && item.descripcion.trim() !== "");
+  }
+
+  if (estadoEncontrado && estadoEncontrado.descripcion) {
+    // Ponemos la primera letra en mayúscula
+    const desc = estadoEncontrado.descripcion;
+    textDescription.textContent = desc.charAt(0).toUpperCase() + desc.slice(1);
+  } else {
+    textDescription.textContent = 'No disponible';
+  }
+  imagenTiempo(textDescription.textContent);
+}
+function imagenTiempo(texto) {
+  const imagen = document.querySelector(".imagenTiempo");
+  if (!imagen || !texto) return;
+
+  //Convertimos el texto a minúsculas, quitamos tildes y reemplazamos espacios por guiones bajos
+  const nombreImagen = texto   // Ejemplo: "Poco nuboso" -> "poco_nuboso"
+    .toLowerCase()
+    .trim()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Quita tildes (ej: "Lluvia" -> "lluvia")
+    .replace(/\s+/g, "_");                             // Cambia espacios por "_"
+
+    imagen.src = `/src/assets/img/${nombreImagen}.png`;
+    imagen.alt = texto;
+}
+function humedad(prediccionHoy){
+  const humedad = document.querySelector(".humedad");
+  const numHumedad = prediccionHoy.humedadRelativa;
+  if (!numHumedad) return 'No disponible';
+  humedad.textContent=   `${humedad.minima}% - ${humedad.maxima}%`;;
+}
+function viento(prediccionHoy){
+  const viento = document.querySelector(".viento");
+
+  viento.textContent =;
+}
+function precipitacion(prediccionHoy){
+  const precipitacion = document.querySelector(".precipitacion");
+
+  const listaPrecipitacion = prediccionHoy.probPrecipitacion;
+  if (!listaPrecipitacion || listaPrecipitacion.length === 0) return '0%';
+  const horaActual = new Date().getHours();
+  // Buscamos el tramo horario coincidente
+  const tramoActual = listaPrecipitacion.find(item => {
+    if (!item.periodo) return false;
+    if (item.periodo.includes('-')) {
+      const [inicio, fin] = item.periodo.split('-').map(Number);
+      return horaActual >= inicio && horaActual < fin;
+    }
+    return Number(item.periodo) === horaActual;
+  });
+
+  // Si encontramos el tramo usamos su valor; de lo contrario, usamos el valor del primer elemento
+  const probabilidad = tramoActual?.value ?? listaPrecipitacion[0]?.value ?? 0;
+
+  precipitacion.textContent = `${probabilidad}%`;
+}
 ///////////////////////////////////////////////////////////
 //Fuera de las API
   //Muestra y cambia la otra para mostrar la actual
@@ -79,12 +239,13 @@ const contededorpdf = document.querySelector(".pdf-container");
     contededorpdf.classList.toggle("mostrar"); //Si tiene la clase se la quita, si no la tiene se la pone
   });
 
-//Mostrar error
+//Mostrar Error
+  //Mostrar error
 const contenedorError = document.querySelector(".contenedorError");
 const textoError = document.querySelector(".codigoError");
 function mostrarError(mensaje){
-  textoError.textContent(`${mensaje}`);
-    contenedorError.classList.toggle("mostrar"); //Si tiene la clase se la quita, si no la tiene se la pone
+ textoError.textContent=mensaje;
+ contenedorError.classList.toggle("mostrar"); //Si tiene la clase se la quita, si no la tiene se la pone
 }
 
 ///////////////////////////////////////////////////////////

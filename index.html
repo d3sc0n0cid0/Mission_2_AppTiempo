@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Unión con el JavaScript usando Módulos ES -->
-    <script defer type="module" src="/src/appTiempo.js"></script>
+    <script type="module" src="/src/appTiempo.js"></script>
     <!-- Unión con el CSS --> 
     <link rel="stylesheet" href="/src/appTiempo.css">
 
@@ -55,24 +55,39 @@
                 <p class="fecha">Fecha</p> <p class="hora">Hora</p>
             </div>
             <!--Temp día y noche-->
-            <div class="tempDiaNoche">
-                <p class="tempDia">Temp.Día</p> <p class="tempNoche">Temp.Noche</p>
+            <div class="tempMaxMin">
+                <p class="tempMax">Temp.Max</p> <p class="tempMin">Temp.Min</p>
             </div>
         </div>
     <!--Temperatura actual + senación termica || imagenTiempo + descripción-->
-        <p>TemperaturaActua</p>
-        <p>Sensación Térmica</p>
-
-        <p>Imagen Tiempo</p>
-        <p>Descripción Tiempo</p>
+        <div class="TempSensDescription">
+            <div class="tempActSensTerm">
+                <p class="temperaturaActual">TemperaturaActual</p>
+                <p class="sensacionTermica">Sensación Térmica</p>
+            </div>
+            <div class="descripcionTiempoImagen">
+                <div class="cajaImagenTiempo">
+                    <img class="imagenTiempo" src="src/assets/img/sun.png"   alt="ImagenTiempo">
+                </div>
+                <p class="descripcionTiempo">Descripción Tiempo</p>
+            </div>
+        </div>
     <!--humedad + viento + precipitacion-->
-        <p>Humedad</p>
-        <p>Viento</p>
-        <p>Preticipación</p>
+    <div class="otrasInfo">
+        <div class="caja">
+            <img class="otrasImagenes" src="src/assets/img/humedad.png"   alt="ImagenTiempo">
+            <p class="humedad">Humedad</p>
+        </div>
+        <div class="caja">
+            <img class="otrasImagenes" src="src/assets/img/viento.png"   alt="ImagenTiempo">
+            <p class="viento">Viento</p>
+        </div>
+        <div class="caja">
+            <img class="otrasImagenes" src="src/assets/img/lluvia.png"   alt="ImagenTiempo">
+            <p class="precipitacion">Preticipación</p>
+        </div>
+    </div>
     </section>
     <!--///////////////////////////////////////////////////////////////////////////////////////-->
-    <footer>
-        <a href="https://www.flaticon.com/free-icons/smile" title="smile icons">Smile icons created by Magnific - Flaticon</a>
-    </footer>
 </body>
 </html>

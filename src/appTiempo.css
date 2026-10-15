@@ -3,6 +3,8 @@ html {
     height: 100%;
     width: 100%;
     overflow-x: hidden;    
+    overflow-y: hidden;    
+
     background-image: url(); /*TO-DO: Poner imagen de fondo para la página web*/
 	    background-repeat: no-repeat;
 	    background-size: cover;
@@ -134,7 +136,7 @@ footer{
     margin-bottom: -2%;
     gap: 3vw;
 }
-.tempDiaNoche{
+.tempMaxMin{
     justify-content: left;
     flex-direction:row;
     display: flex;
@@ -144,6 +146,77 @@ footer{
     margin-top: -2vh;
     margin-bottom: -2%;
     gap: 3vw;
+}
+.TempSensDescription{
+    justify-content: left;
+    flex-direction:row;
+    display: flex;
+
+    gap: 20vw;
+    margin-top: 3vh;
+    margin-left: 3vh;
+    margin-right: 3vh;
+
+    border: 3px solid #9db0d9;
+    background-color: rgb(152, 180, 237);
+    border-radius: 8px;
+}
+/*Temperatura actual y sencasión térmica*/
+.tempActSensTerm{
+    margin-left: 10vw;
+    margin-bottom: 5vh;
+    margin-top: -5vh;
+}
+.temperaturaActual{
+    font-size: 100px;
+    margin-bottom: -3vh;
+}
+.sensacionTermica{
+    font-size: 15px;
+}
+.descripcionTiempoImagen{
+    margin-right: -10vw;
+}
+.cajaImagenTiempo{
+    margin-top: 3vh;
+    width: 30vw;
+    height: 35vh;
+
+    background-color:#ccc ;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+.imagenTiempo{
+    width: 100%;
+    height: 100%;
+    object-fit:contain;
+}
+.otrasInfo{
+    margin-left: 30vw;
+    justify-content: left;
+    flex-direction:row;
+    display: flex;
+    gap: 5vw
+
+}
+.caja{
+    padding: 10px;
+    border: 3px solid #9db0d9;
+    border-radius: 8px;
+
+    justify-content: left;
+    flex-direction:row;
+    display: flex;
+    gap: 2vw;
+
+    object-fit:contain;
+
+}
+.otrasImagenes{
+    width: 4vw;
+    height: auto;
+    object-fit:contain;
 }
 /*////////////////////////////////////////////////////////////////*/
 /*Diferentes class List*/

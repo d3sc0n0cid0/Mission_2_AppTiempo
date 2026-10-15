@@ -1,0 +1,286 @@
+[
+  {
+    "nombre": "A Coruña",
+    "codigo": "15030"
+  },
+  {
+    "nombre": "Albacete",
+    "codigo": "02003"
+  },
+  {
+    "nombre": "Alcala de Henares",
+    "codigo": "28005"
+  },
+  {
+    "nombre": "Alcobendas",
+    "codigo": "28006"
+  },
+  {
+    "nombre": "Alcorcon",
+    "codigo": "28007"
+  },
+  {
+    "nombre": "Alicante / Alacant",
+    "codigo": "03014"
+  },
+  {
+    "nombre": "Almeria",
+    "codigo": "04013"
+  },
+  {
+    "nombre": "Avila",
+    "codigo": "05019"
+  },
+  {
+    "nombre": "Badajoz",
+    "codigo": "06015"
+  },
+  {
+    "nombre": "Badalona",
+    "codigo": "08015"
+  },
+  {
+    "nombre": "Barcelona",
+    "codigo": "08019"
+  },
+  {
+    "nombre": "Bilbao",
+    "codigo": "48020"
+  },
+  {
+    "nombre": "Burgos",
+    "codigo": "09059"
+  },
+  {
+    "nombre": "Caceres",
+    "codigo": "10037"
+  },
+  {
+    "nombre": "Cadiz",
+    "codigo": "11012"
+  },
+  {
+    "nombre": "Cartagena",
+    "codigo": "30016"
+  },
+  {
+    "nombre": "Castellon de la Plana",
+    "codigo": "12040"
+  },
+  {
+    "nombre": "Ceuta",
+    "codigo": "51001"
+  },
+  {
+    "nombre": "Ciudad Real",
+    "codigo": "13034"
+  },
+  {
+    "nombre": "Cordoba",
+    "codigo": "14021"
+  },
+  {
+    "nombre": "Cuenca",
+    "codigo": "16078"
+  },
+  {
+    "nombre": "Donostia-San Sebastian",
+    "codigo": "20069"
+  },
+  {
+    "nombre": "Elche / Elx",
+    "codigo": "03065"
+  },
+  {
+    "nombre": "Getafe",
+    "codigo": "28065"
+  },
+  {
+    "nombre": "Gijon",
+    "codigo": "33024"
+  },
+  {
+    "nombre": "Girona",
+    "codigo": "17079"
+  },
+  {
+    "nombre": "Granada",
+    "codigo": "18087"
+  },
+  {
+    "nombre": "Guadalajara",
+    "codigo": "19130"
+  },
+  {
+    "nombre": "Huelva",
+    "codigo": "21041"
+  },
+  {
+    "nombre": "Huesca",
+    "codigo": "22125"
+  },
+  {
+    "nombre": "Jaen",
+    "codigo": "23050"
+  },
+  {
+    "nombre": "Jerez de la Frontera",
+    "codigo": "11020"
+  },
+  {
+    "nombre": "L'Hospitalet de Llobregat",
+    "codigo": "08101"
+  },
+  {
+    "nombre": "Las Palmas de Gran Canaria",
+    "codigo": "35016"
+  },
+  {
+    "nombre": "Leganes",
+    "codigo": "28074"
+  },
+  {
+    "nombre": "Leon",
+    "codigo": "24089"
+  },
+  {
+    "nombre": "Lleida",
+    "codigo": "25120"
+  },
+  {
+    "nombre": "Logroño",
+    "codigo": "26089"
+  },
+  {
+    "nombre": "Lugo",
+    "codigo": "27028"
+  },
+  {
+    "nombre": "Madrid",
+    "codigo": "28079"
+  },
+  {
+    "nombre": "Malaga",
+    "codigo": "29067"
+  },
+  {
+    "nombre": "Marbella",
+    "codigo": "29069"
+  },
+  {
+    "nombre": "Melilla",
+    "codigo": "52001"
+  },
+  {
+    "nombre": "Merida",
+    "codigo": "06083"
+  },
+  {
+    "nombre": "Mostoles",
+    "codigo": "28092"
+  },
+  {
+    "nombre": "Murcia",
+    "codigo": "30030"
+  },
+  {
+    "nombre": "Ourense",
+    "codigo": "32054"
+  },
+  {
+    "nombre": "Oviedo",
+    "codigo": "33044"
+  },
+  {
+    "nombre": "Palencia",
+    "codigo": "34120"
+  },
+  {
+    "nombre": "Palma de Mallorca",
+    "codigo": "07040"
+  },
+  {
+    "nombre": "Pamplona / Iruña",
+    "codigo": "31201"
+  },
+  {
+    "nombre": "Pontevedra",
+    "codigo": "36038"
+  },
+  {
+    "nombre": "Sabadell",
+    "codigo": "08187"
+  },
+  {
+    "nombre": "Salamanca",
+    "codigo": "37274"
+  },
+  {
+    "nombre": "San Cristobal de La Laguna",
+    "codigo": "38035"
+  },
+  {
+    "nombre": "Santa Cruz de Tenerife",
+    "codigo": "38038"
+  },
+  {
+    "nombre": "Santander",
+    "codigo": "39075"
+  },
+  {
+    "nombre": "Santiago de Compostela",
+    "codigo": "15078"
+  },
+  {
+    "nombre": "Segovia",
+    "codigo": "40194"
+  },
+  {
+    "nombre": "Sevilla",
+    "codigo": "41091"
+  },
+  {
+    "nombre": "Soria",
+    "codigo": "42173"
+  },
+  {
+    "nombre": "Tarragona",
+    "codigo": "43148"
+  },
+  {
+    "nombre": "Terrassa",
+    "codigo": "08279"
+  },
+  {
+    "nombre": "Teruel",
+    "codigo": "44216"
+  },
+  {
+    "nombre": "Toledo",
+    "codigo": "45168"
+  },
+  {
+    "nombre": "Valencia",
+    "codigo": "46250"
+  },
+  {
+    "nombre": "Valladolid",
+    "codigo": "47186"
+  },
+  {
+    "nombre": "Vigo",
+    "codigo": "36057"
+  },
+  {
+    "nombre": "Vitoria-Gasteiz",
+    "codigo": "01059"
+  },
+  {
+    "nombre": "Zamora",
+    "codigo": "49275"
+  },
+  {
+    "nombre": "Zaragoza",
+    "codigo": "50297"
+  }
+]
