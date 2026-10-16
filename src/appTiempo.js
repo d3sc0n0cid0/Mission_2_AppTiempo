@@ -1,6 +1,6 @@
 //Importamos de los otos js
 import { fetchWeatherByMunicipio } from './api/Aemet.js';
-import {renderDatosTiempo, renderHora,renderFecha, mostrarError, ocultarError} from './render/renderTiempo.js';
+import {renderDatosTiempo, renderHora,renderFecha, mostrarError, ocultarError, mostrarCargando, ocultarCargando, bloquearControles, desbloquearControles} from './render/renderTiempo.js';
 import {buscarCodigoMunicipio} from "./logic/tiempoUtils.js"
 
 //Variables globales
@@ -10,38 +10,49 @@ let municipio = 28079;
 
 //Carga el tiempo que hace del municipio que se pida, si no se mete ninguno se usa de default madrid
 async function cargarTiempo(codigoMunicipio = '28079') {
-  ocultarError();
-  //Esperamos hasta recivir los datos json de la api de aemet
-  const datos = await fetchWeatherByMunicipio(codigoMunicipio);
-  if (!datos) {//Si datos no existe
-    mostrarError("No se pudieron consultar los datos del tiempo.");
-    return;
-  }
-  if (datos.error) {//Si falla la conexión y hay mensaje de error
-    mostrarError(datos.mensaje);
-    return;
-  }
-  //Si todo va bien, entonces actualizamos todos los datos, temperatura, umedad, viento etc.
-  renderDatosTiempo(datos, elegirDia);//Los datos del municipio y de que día lo queremos (0 hoy, 1 mañana, hatsa los 7 días disponibles)
-}
-//Botones para hoy y mañana
-  //Hoy
-  const botonHoy = document.getElementById("hoy");
-  botonHoy.addEventListener("click", async()=>{
-    if(botonHoy){
-      elegirDia=0;
-      await cargarTiempo(municipio);
-      renderFecha(elegirDia);
+  try {
+    ocultarError();
+    mostrarCargando();
+    bloquearControles();
+    //Esperamos hasta recivir los datos json de la api de aemet
+    const datos = await fetchWeatherByMunicipio(codigoMunicipio);
+    if (!datos) {//Si datos no existe
+      mostrarError("No se pudieron consultar los datos del tiempo.");
+      return;
     }
-  });
-  //Mañana
-  const botonMannana = document.getElementById("mannana");
-  botonMannana.addEventListener("click", async()=>{
-    if(botonMannana){
-      elegirDia=1;
-      await cargarTiempo(municipio);
-      renderFecha(elegirDia);
+    if (datos.error) {//Si falla la conexión y hay mensaje de error
+      mostrarError(datos.mensaje);
+      return;
     }
+    //Si todo va bien, entonces actualizamos todos los datos, temperatura, umedad, viento etc.
+    ocultarCargando();
+    renderDatosTiempo(datos, elegirDia);//Los datos del municipio y de que día lo queremos (0 hoy, 1 mañana, hatsa los 7 días disponibles)
+  } catch (error) {
+    console.error("Error inesperado al cargar el tiempo:", error);
+    mostrarError("Ocurrió un error inesperado al procesar la información.");
+  } finally {
+    // El bloque finally asegura que los controles se reactiven siempre
+    desbloquearControles();
+  }
+  }
+  //Botones para hoy y mañana
+    //Hoy
+    const botonHoy = document.getElementById("hoy");
+    botonHoy.addEventListener("click", async()=>{
+      if(botonHoy){
+        elegirDia=0;
+        await cargarTiempo(municipio);
+        renderFecha(elegirDia);
+      }
+    });
+    //Mañana
+    const botonMannana = document.getElementById("mannana");
+    botonMannana.addEventListener("click", async()=>{
+      if(botonMannana){
+        elegirDia=1;
+        await cargarTiempo(municipio);
+        renderFecha(elegirDia);
+      }
   });
 
 function inicializarBuscador() {
@@ -56,8 +67,9 @@ function inicializarBuscador() {
     (por ejemplo, limpiar el campo de texto del input, deshabilitar el botón mientras carga, o encadenar otra acción), 
     el código continuaría antes de que la AEMET responda.*/
     botonBuscar.addEventListener("click", async () => {
-      //Pasamos el texto a minúsculas y quitamos los espacios para que pueda coincidir con los datos de los municipios
-      const texto = inputBusqueda.value.toLowerCase().trim();
+      //Pasamos el texto a minúsculas y quitamos los espacios para que pueda coincidir con los datos de los municipios, también quitamos las tildes
+      const texto = inputBusqueda.value.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
       if (!texto) return;//Si no hay texto no hacemos nada
       //Comprobamos que exista lo que mos han pedidos
       municipio = buscarCodigoMunicipio(texto);
@@ -87,8 +99,12 @@ function inicializarPdf() {
   }
 }
 
-function main() {
-  cargarTiempo();
+async function main() {
+  try {
+      await cargarTiempo(municipio);
+    } catch (error) {
+      console.error("Fallo al inicializar la aplicación:", error);
+    }
   renderHora();
   setInterval(renderHora, 1000);
   renderFecha(elegirDia);

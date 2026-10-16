@@ -9,6 +9,7 @@ export function mostrarError(mensaje) {
   if (contenedorError && textoError) {
     textoError.textContent = mensaje;
     contenedorError.style.display = "block";
+    textoError.style.color = "red";
   }
 }
     //Ocultamos el error una vez se ha arreglado
@@ -107,4 +108,47 @@ export function renderDatosTiempo(datos, indiceDia = 0) {
     // Si la imagen no existe en la carpeta, usamos sun.png como respaldo
     imgElem.onerror = () => {imgElem.src = '/src/assets/img/sun.png';};
   }
+}
+
+//COSAS APARTE QUE HA PEDIDO EL WEBIARENA PARA MEJORAR LA NOTA
+// src/render/renderTiempo.js
+
+// IMPORTANTE: Asegúrate de añadir los elementos correspondientes en el HTML
+// o adaptar las funciones según las clases/IDs que tengas en tu plantilla.
+
+export function mostrarCargando() {
+  const contenedorError = document.querySelector(".contenedorError");
+  const textoError = document.querySelector(".codigoError");
+  if (contenedorError && textoError) {
+    textoError.textContent = "Cargando datos del tiempo...";
+    textoError.style.color = "#0056b3";
+    contenedorError.style.display = "block";
+  }
+}
+export function ocultarCargando() {
+  ocultarError();
+}
+
+export function bloquearControles() {
+  const inputBusqueda = document.querySelector(".inputBusqueda");
+  const botonBuscar = document.getElementById("buscarMunicipio");
+  const botonHoy = document.getElementById("hoy");
+  const botonMannana = document.getElementById("mannana");
+
+  if (inputBusqueda) inputBusqueda.disabled = true;
+  if (botonBuscar) botonBuscar.disabled = true;
+  if (botonHoy) botonHoy.disabled = true;
+  if (botonMannana) botonMannana.disabled = true;
+}
+
+export function desbloquearControles() {
+  const inputBusqueda = document.querySelector(".inputBusqueda");
+  const botonBuscar = document.getElementById("buscarMunicipio");
+  const botonHoy = document.getElementById("hoy");
+  const botonMannana = document.getElementById("mannana");
+
+  if (inputBusqueda) inputBusqueda.disabled = false;
+  if (botonBuscar) botonBuscar.disabled = false;
+  if (botonHoy) botonHoy.disabled = false;
+  if (botonMannana) botonMannana.disabled = false;
 }
