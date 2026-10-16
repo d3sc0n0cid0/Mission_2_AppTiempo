@@ -174,24 +174,67 @@ function imagenTiempo(texto) {
     imagen.src = `/src/assets/img/${nombreImagen}.png`;
     imagen.alt = texto;
 }
-function humedad(prediccionHoy){
-  const humedad = document.querySelector(".humedad");
-  const numHumedad = prediccionHoy.humedadRelativa;
-  if (!numHumedad) return 'No disponible';
-  humedad.textContent=   `${humedad.minima}% - ${humedad.maxima}%`;;
-}
-function viento(prediccionHoy){
-  const viento = document.querySelector(".viento");
+function humedad(prediccionHoy) {
+  const elemHumedad = document.querySelector(".humedad");
+  if (!elemHumedad) return;
 
-  viento.textContent =;
+  const datosHumedad = prediccionHoy.humedadRelativa;
+  
+  if (!datosHumedad) {
+    elemHumedad.textContent = 'Humedad: No disponible';
+    return;
+  }
+
+  // Si AEMET devuelve maxima/minima directa
+  const max = datosHumedad.maxima ?? datosHumedad[0]?.maxima ?? '--';
+  const min = datosHumedad.minima ?? datosHumedad[0]?.minima ?? '--';
+
+  elemHumedad.textContent = `${min}% - ${max}%`;
 }
-function precipitacion(prediccionHoy){
-  const precipitacion = document.querySelector(".precipitacion");
+
+function viento(prediccionHoy) {
+  const elemViento = document.querySelector(".viento");
+  if (!elemViento) return;
+
+  const horaActual = new Date().getHours();
+  const listaViento = prediccionHoy.viento;
+
+  if (!listaViento || listaViento.length === 0) {
+    elemViento.textContent = 'Calma 0 km/h';
+    return;
+  }
+
+  // Buscamos el tramo horario coincidente o el primer elemento con dirección
+  const vientoActual = listaViento.find(item => {
+    if (!item.periodo) return false;
+    if (item.periodo.includes('-')) {
+      const [inicio, fin] = item.periodo.split('-').map(Number);
+      return horaActual >= inicio && horaActual < fin;
+    }
+    return Number(item.periodo) === horaActual;
+  }) || listaViento.find(item => item.direccion) || listaViento[0];
+
+  // AEMET a veces envía velocidad como número o dentro de un array de velocidad
+  const direccion = vientoActual.direccion || 'Calma';
+  const velocidad = vientoActual.velocidad?.[0]?.value ?? vientoActual.velocidad ?? 0;
+
+  elemViento.textContent = `${direccion} ${velocidad} km/h`;
+}
+
+function precipitacion(prediccionHoy) {
+  const elemPrecipitacion = document.querySelector(".precipitacion");
+  if (!elemPrecipitacion) return;
 
   const listaPrecipitacion = prediccionHoy.probPrecipitacion;
-  if (!listaPrecipitacion || listaPrecipitacion.length === 0) return '0%';
+
+  if (!listaPrecipitacion || listaPrecipitacion.length === 0) {
+    elemPrecipitacion.textContent = '0%';
+    return;
+  }
+
   const horaActual = new Date().getHours();
-  // Buscamos el tramo horario coincidente
+
+  // Buscamos el tramo coincidente
   const tramoActual = listaPrecipitacion.find(item => {
     if (!item.periodo) return false;
     if (item.periodo.includes('-')) {
@@ -201,10 +244,13 @@ function precipitacion(prediccionHoy){
     return Number(item.periodo) === horaActual;
   });
 
-  // Si encontramos el tramo usamos su valor; de lo contrario, usamos el valor del primer elemento
-  const probabilidad = tramoActual?.value ?? listaPrecipitacion[0]?.value ?? 0;
+  // Si no coincide tramo horario exacto, busca la probabilidad general (periodo "") o la máxima del día
+  const probabilidad = tramoActual?.value 
+    ?? listaPrecipitacion.find(item => item.periodo === "" || !item.periodo)?.value 
+    ?? listaPrecipitacion[0]?.value 
+    ?? 0;
 
-  precipitacion.textContent = `${probabilidad}%`;
+  elemPrecipitacion.textContent = `${probabilidad}%`;
 }
 ///////////////////////////////////////////////////////////
 //Fuera de las API
