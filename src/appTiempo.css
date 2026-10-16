@@ -193,7 +193,8 @@ footer{
     object-fit:contain;
 }
 .otrasInfo{
-    margin-left: 30vw;
+    margin-left: 15vw;
+    margin-top: 3vh;
     justify-content: left;
     flex-direction:row;
     display: flex;

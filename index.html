@@ -29,21 +29,22 @@
             <input type="text" class="inputBusqueda" placeholder="Escribe el nombre de un municipio...">
             <!--TO-DO: hacer que muestre una lista con los posibles resultados-->
             <!--Botón de búsqueda-->
-            <button id="buscarMunicipio"><span>&#128269</span></buton>
+            <button id="buscarMunicipio"><span>&#128269;</span></buton>
             <!--Poner un botón al lado que sea para mostarr el pdf con la información de los municipios-->
-            <button id="botonInformacion">(&#8505)</button>
+            <button id="botonInformacion">(&#8505;)</button>
         </div>
-
+        <!--Mensajes que salen debajo de la barra de búsqueda-->
+            <!--Errores-->
         <div class="contenedorError">
-            <p class="codigoError">Hola soy un error :3</p>
+            <p class="codigoError"></p>
         </div>
 
             <div class="pdf-container">
                 <iframe src="src\assets\pdf\detalle_municipios_zonas_meteorologicas.pdf"></iframe>
             </div>
         <div class="botonesDia"> <!--Botones: Hoy | Mañana | Semana(o próximos 7 días)-->
-            <button class="botonMostrarTiempoDe">Hoy</button>
-            <button class="botonMostrarTiempoDe">Mañana</button>
+            <button class="botonMostrarTiempoDe" id="hoy">Hoy</button>
+            <button class="botonMostrarTiempoDe" id="mannana">Mañana</button>
             <button class="botonMostrarTiempoDe">Semana</button>
         </div>
     </header>
