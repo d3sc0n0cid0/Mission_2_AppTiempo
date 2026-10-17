@@ -61,12 +61,15 @@ export function obtenerEstadoHorario(lista, horaActual = new Date().getHours()) 
 //Feha y hora
   //Fecha
   export function obtenerFechaFormateada(diaDeMas=0) {
-    const ahora = new Date();
-    const dia = String(ahora.getDate()+diaDeMas).padStart(2, '0');
-    const mes = String(ahora.getMonth() + 1).padStart(2, '0');
-    const anio = ahora.getFullYear();
+    //En caso de que pidan el tiemop de algo que no sea hoy
+    const fechaCalculada = new Date();
+    fechaCalculada.setDate(fechaCalculada.getDate() + diaDeMas); // Actualiza día, mes y año de forma segura
 
-    return {fecha: `${dia}/${mes}/${anio}`};
+    const dia = String(fechaCalculada.getDate()).padStart(2, '0');
+    const mes = String(fechaCalculada.getMonth() + 1).padStart(2, '0');
+    const anio = fechaCalculada.getFullYear();
+
+    return `${dia}/${mes}/${anio}`;
   }
   //Hora
   export function obtenerHoraFormateada() {
@@ -74,6 +77,6 @@ export function obtenerEstadoHorario(lista, horaActual = new Date().getHours()) 
     const horas = String(ahora.getHours()).padStart(2, '0'); //El padStat lo que hace es, comprueba que getHours sea un número y si tiene un solo caracter por ejemplo 4, pone un 0 delante ex: 04
     const minutos = String(ahora.getMinutes()).padStart(2, '0');
 
-    return {hora: `${horas}:${minutos}`};
+    return `${horas}:${minutos}`;
 }
 

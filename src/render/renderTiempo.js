@@ -22,14 +22,12 @@ export function ocultarError() {
 export function renderHora() {
   const horaElem = document.querySelector(".hora");
   if (!horaElem) return;
-  const  {hora}  = obtenerHoraFormateada();
-  horaElem.textContent = `Hora: ${hora}`;
+  horaElem.textContent = `Hora: ${obtenerHoraFormateada()}`;
 }
 export function renderFecha(dia){
     const fechaElem = document.querySelector(".fecha");
     if (!fechaElem) return;
-    const  {fecha}  = obtenerFechaFormateada(dia);
-    fechaElem.textContent = `Día: ${fecha}`;
+    fechaElem.textContent = `Día: ${obtenerFechaFormateada(dia)}`;
 }
 
 //DATOS TIEMPO
@@ -82,7 +80,7 @@ export function renderDatosTiempo(datos, indiceDia = 0) {
     elemPrecip.textContent = `Precipitación: ${prob}%`;
   }
 
-  //Descripción del tiempo e imagen
+  //Descripción del tiempo e imagen || Hay pocas imágenes porque en españa no suele variar y con las que hay me ha dado para probar si cambiaba la imagen así que no sonnnecesarias más
   const textDescElem = document.querySelector(".descripcionTiempo");
   const imgElem = document.querySelector(".imagenTiempo");
   

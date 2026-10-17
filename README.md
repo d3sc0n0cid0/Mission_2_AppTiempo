@@ -1,6 +1,6 @@
 # Mission_2_AppTiempo
 ## Descripción
-    Se trata de una página web que es capaz de dar el tiempo para cada provincia de España
+    Se trata de una página web que es capaz de dar el tiempo de las 70 localidades más importantes de España
 ## Funcionamiento 
 
 ## Uso de IA
