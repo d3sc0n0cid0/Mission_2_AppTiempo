@@ -114,12 +114,10 @@ function renderImagenDescripcion(prediccionDia){
     imgElem.src = rutaImagen;
     imgElem.alt = descripcion;    
     // Si la imagen no existe en la carpeta, usamos sun.png como respaldo
-    imgElem.onerror = () => {imgElem.src = '/src/assets/img/sun.png';};
-  }
+    imgElem.onerror = () => { imgElem.src = rutaFallback; };  }
 }
 
 export function renderDatosTiempo(datos, indiceDia = 0) {
-    console.log(indiceDia);
   const prediccionDia = datos?.[0]?.prediccion?.dia?.[indiceDia];//Tomamos los datos del día que queremos
   if (!prediccionDia) {
     mostrarError("No se encontraron datos meteorológicos para este día.");

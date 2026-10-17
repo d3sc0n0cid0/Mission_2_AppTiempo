@@ -74,9 +74,10 @@ function inicializarBuscador() {
       const texto = inputBusqueda.value.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
       if (!texto) return;//Si no hay texto no hacemos nada
-      //Comprobamos que exista lo que mos han pedidos
-      municipio = buscarCodigoMunicipio(texto);
-      if (municipio) {
+      //Comprobamos que exista lo que nos han pedido usando una variable temporal
+      const codigoEncontrado = buscarCodigoMunicipio(texto);
+      if (codigoEncontrado) {
+        municipio = codigoEncontrado; // Solo actualizamos la variable global si el municipio es válido
         // AWAIT para resolver la petición y refrescar la pantalla
         await cargarTiempo(municipio);//Se lo pasamos para que actualice los datos
       } else {//Si no existe:
