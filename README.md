@@ -18,7 +18,7 @@ usé la IA para completar lo que tuviera duda y cómo realizar la conexión entr
 ## Autopsia
 Las 2 decisiones más discutibles de tu código y qué alternativa descartaste en cada una.
 
-1. Originalmente quería hacer un botón más que fuera para mostrar la semana
+1. Originalmente quería hacer un botón más que fuera para mostrar la semana pero no lo he hecho y no se va a hacer
 Lo que pasó es que me dio pereza tener que ocultar todo lo demás con el toggle declaslist
 Y hacer desde js que aparecieran las nuevas cajas que mostraran lso próximos 7 días
 porque web arena seguramemnte no le importará el esfurzo como en la práctica anterior así que estaba desmotivada
