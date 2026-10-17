@@ -89,7 +89,7 @@ function renderImagenDescripcion(prediccionDia){
   const imgElem = document.querySelector(".imagenTiempo");
   
   //Buscamos el estado actual del cielo y si no lo encuentra usa la de respaldo
-  const tramosValidos = (prediccionDia.estadoCielo || []) //quedarse solo con aquellos objetos que no sean nulos y que contengan una descripcion o un value válido
+  const tramosValidos = (prediccionDia.estadoCielo || []) //quedarse solo con aquellos objetos que no sean nulos y que contengan una descripcion o un value válido:
     .filter(item => item && (item.descripcion || item.value));
 
   const tramoEstado = obtenerEstadoHorario(tramosValidos) || tramosValidos[0];

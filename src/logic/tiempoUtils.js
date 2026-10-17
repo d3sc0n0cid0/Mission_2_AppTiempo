@@ -44,7 +44,6 @@ export function obtenerEstadoHorario(lista, horaActual = new Date().getHours()) 
   if (tramoCoincidente) return tramoCoincidente; //Si lo encuentra, lo devuelve directamente
 
   // Si ningún tramo coincide, busca el más cercano comparando centros
-  const listaValida = lista.filter(item => item && item.periodo !== undefined && item.periodo !== null);//Evita un error de undefined en el reduce
   return lista.reduce((masCercano, item) => {
     if (!item.periodo) return masCercano;
 
@@ -55,7 +54,7 @@ export function obtenerEstadoHorario(lista, horaActual = new Date().getHours()) 
     const difMasCercano = Math.abs(horaActual - centroMasCercano);
 
     return difActual < difMasCercano ? item : masCercano;
-  },listaValida[0]);// <--- Valor inicial acumulador seguro
+  });
 }
 
 
