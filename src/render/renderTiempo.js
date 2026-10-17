@@ -89,7 +89,7 @@ function renderImagenDescripcion(prediccionDia){
   const imgElem = document.querySelector(".imagenTiempo");
   
   //Buscamos el estado actual del cielo y si no lo encuentra usa la de respaldo
-  const tramosValidos = (prediccionDia.estadoCielo || [])
+  const tramosValidos = (prediccionDia.estadoCielo || []) //quedarse solo con aquellos objetos que no sean nulos y que contengan una descripcion o un value válido
     .filter(item => item && (item.descripcion || item.value));
 
   const tramoEstado = obtenerEstadoHorario(tramosValidos) || tramosValidos[0];
@@ -136,8 +136,8 @@ export function renderDatosTiempo(datos, indiceDia = 0) {
     renderViento(prediccionDia);
     //Precipitación
     renderPrecipitacion(prediccionDia);
-  //Descripción del tiempo e imagen || Hay pocas imágenes porque en españa no suele variar y con las que hay me ha dado para probar si cambiaba la imagen así que no sonnnecesarias más
-  renderImagenDescripcion(prediccionDia);
+    //Descripción del tiempo e imagen || Hay pocas imágenes porque en españa no suele variar y con las que hay me ha dado para probar si cambiaba la imagen así que no sonnnecesarias más
+    renderImagenDescripcion(prediccionDia);
 }
 
 //COSAS APARTE QUE HA PEDIDO EL WEBIARENA PARA MEJORAR LA NOTA
