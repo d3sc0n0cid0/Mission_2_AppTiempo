@@ -5,7 +5,7 @@ html {
     overflow-x: hidden;    
     overflow-y: hidden;    
 
-    background-image: url(); /*TO-DO: Poner imagen de fondo para la página web*/
+    background-image: url(./assets/img/imagenFondo.jpg); 
 	    background-repeat: no-repeat;
 	    background-size: cover;
         background-color: rgb(155, 155, 229);
@@ -42,10 +42,12 @@ footer{
 .inputBusqueda {
     flex-grow: 4;
     padding: 10px 15px;
-    border: 2px solid #ccc;
+    border: 2px solid #e7d98a;
     border-radius: 8px;
+    border-style: dashed solid;
     font-size: 16px;
     box-sizing: border-box;
+
     margin: 0;
 }
 #buscarMunicipio{
@@ -72,6 +74,7 @@ footer{
 /*Print de error para el usuario*/
 .contenedorError{
     display: none;
+    background-color: rgb(222, 229, 155);
 }
 .codigoError{
 
@@ -160,6 +163,13 @@ footer{
     border: 3px solid #9db0d9;
     background-color: rgb(152, 180, 237);
     border-radius: 8px;
+    border-style: dotted;
+
+    background-image: url(./assets/img/fondoCuadradoInterno.jpg);
+        background-repeat: no-repeat;
+	    background-size: cover;
+        background-color: rgb(175, 155, 229);
+        background-position: center;
 }
 /*Temperatura actual y sencasión térmica*/
 .tempActSensTerm{
