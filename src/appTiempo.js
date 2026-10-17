@@ -36,6 +36,7 @@ async function cargarTiempo(codigoMunicipio = '28079') {
   }
   }
   //Botones para hoy y mañana
+  function inicializarBotonesDia(){
     //Hoy
     const botonHoy = document.getElementById("hoy");
     botonHoy.addEventListener("click", async()=>{
@@ -53,7 +54,9 @@ async function cargarTiempo(codigoMunicipio = '28079') {
         await cargarTiempo(municipio);
         renderFecha(elegirDia);
       }
-  });
+    });
+  }
+    
 
 function inicializarBuscador() {
   const inputBusqueda = document.querySelector(".inputBusqueda");
@@ -110,6 +113,7 @@ async function main() {
   renderFecha(elegirDia);
   inicializarBuscador();
   inicializarPdf();
+  inicializarBotonesDia();
 }
 
 document.addEventListener("DOMContentLoaded", main);

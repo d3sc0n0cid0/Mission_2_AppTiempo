@@ -6,8 +6,8 @@ import municipios from '../assets/json/municipios_espana.json';
 export function buscarCodigoMunicipio(nombreBuscado) {
   if (!nombreBuscado) return null;
   
-  const municipioEncontrado = municipios.find(m => //Ninguno tiene tildes en el js por eso aquí no se las quito
-    m.nombre.toLowerCase().trim() === nombreBuscado.toLowerCase().trim()
+  const municipioEncontrado = municipios.find(m => 
+    m.nombre.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "") === nombreBuscado.toLowerCase().trim()
   );
 
   return municipioEncontrado ? municipioEncontrado.codigo : null;

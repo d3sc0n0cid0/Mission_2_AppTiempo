@@ -8,7 +8,7 @@
     "codigo": "02003"
   },
   {
-    "nombre": "Alcala de Henares",
+    "nombre": "Alcalá de Henares",
     "codigo": "28005"
   },
   {
@@ -16,19 +16,19 @@
     "codigo": "28006"
   },
   {
-    "nombre": "Alcorcon",
+    "nombre": "Alcorcón",
     "codigo": "28007"
   },
   {
-    "nombre": "Alicante / Alacant",
+    "nombre": "Alicante",
     "codigo": "03014"
   },
   {
-    "nombre": "Almeria",
+    "nombre": "Almería",
     "codigo": "04013"
   },
   {
-    "nombre": "Avila",
+    "nombre": "Ávila",
     "codigo": "05019"
   },
   {
@@ -52,11 +52,11 @@
     "codigo": "09059"
   },
   {
-    "nombre": "Caceres",
+    "nombre": "Cáceres",
     "codigo": "10037"
   },
   {
-    "nombre": "Cadiz",
+    "nombre": "Cádiz",
     "codigo": "11012"
   },
   {
@@ -64,7 +64,7 @@
     "codigo": "30016"
   },
   {
-    "nombre": "Castellon de la Plana",
+    "nombre": "Castellón de la Plana",
     "codigo": "12040"
   },
   {
@@ -76,7 +76,7 @@
     "codigo": "13034"
   },
   {
-    "nombre": "Cordoba",
+    "nombre": "Córdoba",
     "codigo": "14021"
   },
   {
@@ -84,11 +84,11 @@
     "codigo": "16078"
   },
   {
-    "nombre": "Donostia-San Sebastian",
+    "nombre": "San Sebastián",
     "codigo": "20069"
   },
   {
-    "nombre": "Elche / Elx",
+    "nombre": "Elche",
     "codigo": "03065"
   },
   {
@@ -96,7 +96,7 @@
     "codigo": "28065"
   },
   {
-    "nombre": "Gijon",
+    "nombre": "Gijón",
     "codigo": "33024"
   },
   {
@@ -120,7 +120,7 @@
     "codigo": "22125"
   },
   {
-    "nombre": "Jaen",
+    "nombre": "Jaén",
     "codigo": "23050"
   },
   {
@@ -128,7 +128,7 @@
     "codigo": "11020"
   },
   {
-    "nombre": "L'Hospitalet de Llobregat",
+    "nombre": "Hospitalet de Llobregat",
     "codigo": "08101"
   },
   {
@@ -136,11 +136,11 @@
     "codigo": "35016"
   },
   {
-    "nombre": "Leganes",
+    "nombre": "Leganés",
     "codigo": "28074"
   },
   {
-    "nombre": "Leon",
+    "nombre": "León",
     "codigo": "24089"
   },
   {
@@ -160,7 +160,7 @@
     "codigo": "28079"
   },
   {
-    "nombre": "Malaga",
+    "nombre": "Málaga",
     "codigo": "29067"
   },
   {
@@ -172,11 +172,11 @@
     "codigo": "52001"
   },
   {
-    "nombre": "Merida",
+    "nombre": "Mérida",
     "codigo": "06083"
   },
   {
-    "nombre": "Mostoles",
+    "nombre": "Móstoles",
     "codigo": "28092"
   },
   {
@@ -200,7 +200,7 @@
     "codigo": "07040"
   },
   {
-    "nombre": "Pamplona / Iruña",
+    "nombre": "Pamplona",
     "codigo": "31201"
   },
   {
@@ -216,7 +216,7 @@
     "codigo": "37274"
   },
   {
-    "nombre": "San Cristobal de La Laguna",
+    "nombre": "San Cristóbal de La Laguna",
     "codigo": "38035"
   },
   {
@@ -272,7 +272,7 @@
     "codigo": "36057"
   },
   {
-    "nombre": "Vitoria-Gasteiz",
+    "nombre": "Vitoria",
     "codigo": "01059"
   },
   {

@@ -31,15 +31,9 @@ export function renderFecha(dia){
 }
 
 //DATOS TIEMPO
-export function renderDatosTiempo(datos, indiceDia = 0) {
-    console.log(indiceDia);
-  const prediccionDia = datos?.[0]?.prediccion?.dia?.[indiceDia];//Tomamos los datos del día que queremos
-  if (!prediccionDia) {
-    mostrarError("No se encontraron datos meteorológicos para este día.");
-    return;
-  }
-  ocultarError();
-    //Temperaturas Máxima y Mínima
+
+function renderTemperatura(prediccionDia){
+  //Temperaturas Máxima y Mínima
   const tempMax = document.querySelector(".tempMax");
   const tempMin = document.querySelector(".tempMin");
   if (tempMax) tempMax.textContent = `${prediccionDia.temperatura?.maxima ?? '--'}°C`;//Si temperatura es null o undefined entonces muestra --
@@ -49,21 +43,25 @@ export function renderDatosTiempo(datos, indiceDia = 0) {
   const tempActElem = document.querySelector(".temperaturaActual");
   const tempCercana = obtenerEstadoHorario(prediccionDia.temperatura?.dato);
   if (tempActElem) tempActElem.textContent = tempCercana ? `${tempCercana.value}°C` : '--°C';
-
-    //Sensación Térmica
+}
+function renderSensacionTermica(prediccionDia){
+  //Sensación Térmica
   const sensActElem = document.querySelector(".sensacionTermica");
   const sensCercana = obtenerEstadoHorario(prediccionDia.sensTermica?.dato);
   if (sensActElem) sensActElem.textContent = sensCercana ? `Sensación térmica: ${sensCercana.value}°C` : 'Sensación térmica: --°C';
   
-    //Humedad
+}
+function renderHumedad(prediccionDia){
+  //Humedad
   const elemHumedad = document.querySelector(".humedad");
   if (elemHumedad) {
     const maxH = prediccionDia.humedadRelativa?.maxima ?? '--';
     const minH = prediccionDia.humedadRelativa?.minima ?? '--';
     elemHumedad.textContent = `Humedad: ${minH}% - ${maxH}%`;
   }
-
-    //Viento
+}
+function renderViento(prediccionDia){
+  //Viento
   const elemViento = document.querySelector(".viento");
   if (elemViento) {
     const vientoTramo = obtenerEstadoHorario(prediccionDia.viento);
@@ -71,23 +69,31 @@ export function renderDatosTiempo(datos, indiceDia = 0) {
     const velocidad = vientoTramo?.velocidad?.[0]?.value ?? vientoTramo?.velocidad ?? 0;
     elemViento.textContent = `${direccion} ${velocidad} km/h`;
   }
-
-    //Precipitación
+}
+function renderPrecipitacion(prediccionDia){
+  //Precipitación
   const elemPrecip = document.querySelector(".precipitacion");
   if (elemPrecip) {
     const precipTramo = obtenerEstadoHorario(prediccionDia.probPrecipitacion);
     const prob = precipTramo?.value ?? 0;
     elemPrecip.textContent = `Precipitación: ${prob}%`;
   }
-
-  //Descripción del tiempo e imagen || Hay pocas imágenes porque en españa no suele variar y con las que hay me ha dado para probar si cambiaba la imagen así que no sonnnecesarias más
+}
+function renderImagenDescripcion(prediccionDia){
+    /*Cuando ejecutas npm run build (vite build), Vite procesa todos los archivos, 
+  los cambia de nombre para optimizarlos y los mete dentro de la carpeta dist. 
+  La carpeta /src desaparece por completo en la versión final de producción, por lo que las
+   imágenes darían un error 404 (imagen rota). Por eso tengo que hacer lo siguiente*/
+  
   const textDescElem = document.querySelector(".descripcionTiempo");
   const imgElem = document.querySelector(".imagenTiempo");
   
   //Buscamos el estado actual del cielo y si no lo encuentra usa la de respaldo
-  const tramoEstado = obtenerEstadoHorario(prediccionDia.estadoCielo) 
-    || prediccionDia.estadoCielo?.find(item => item.descripcion && item.descripcion.trim() !== "");
+  const tramosValidos = (prediccionDia.estadoCielo || [])
+    .filter(item => item && (item.descripcion || item.value));
 
+  const tramoEstado = obtenerEstadoHorario(tramosValidos) || tramosValidos[0];
+  
   const descripcion = tramoEstado?.descripcion
     ? tramoEstado.descripcion.charAt(0).toUpperCase() + tramoEstado.descripcion.slice(1)//Si son 2 palabaras aka poco nubloso
     : 'No disponible';
@@ -101,11 +107,37 @@ export function renderDatosTiempo(datos, indiceDia = 0) {
       .normalize("NFD").replace(/[\u0300-\u036f]/g, "")//Quitamos las tildes
       .replace(/\s+/g, "_");//Los espacios intermedios los vuelve _
 
-    imgElem.src = `/src/assets/img/${nombreImagen}.png`;
-    imgElem.alt = descripcion;
+    // LO QUE DEBES PONER (Compatibilidad con Vite Build):
+    const rutaImagen = new URL(`../assets/img/${nombreImagen}.png`, import.meta.url).href;
+    const rutaFallback = new URL(`../assets/img/sun.png`, import.meta.url).href;
+
+    imgElem.src = rutaImagen;
+    imgElem.alt = descripcion;    
     // Si la imagen no existe en la carpeta, usamos sun.png como respaldo
     imgElem.onerror = () => {imgElem.src = '/src/assets/img/sun.png';};
   }
+}
+
+export function renderDatosTiempo(datos, indiceDia = 0) {
+    console.log(indiceDia);
+  const prediccionDia = datos?.[0]?.prediccion?.dia?.[indiceDia];//Tomamos los datos del día que queremos
+  if (!prediccionDia) {
+    mostrarError("No se encontraron datos meteorológicos para este día.");
+    return;
+  }
+  ocultarError();
+    //Temperatura max, min y actual
+    renderTemperatura(prediccionDia);
+    //Sensación Térmica
+    renderSensacionTermica(prediccionDia)
+    //Humedad
+    renderHumedad(prediccionDia);
+    //Viento
+    renderViento(prediccionDia);
+    //Precipitación
+    renderPrecipitacion(prediccionDia);
+  //Descripción del tiempo e imagen || Hay pocas imágenes porque en españa no suele variar y con las que hay me ha dado para probar si cambiaba la imagen así que no sonnnecesarias más
+  renderImagenDescripcion(prediccionDia);
 }
 
 //COSAS APARTE QUE HA PEDIDO EL WEBIARENA PARA MEJORAR LA NOTA
